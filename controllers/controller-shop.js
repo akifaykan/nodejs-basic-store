@@ -92,7 +92,6 @@ exports.getProductsByCategoryId = (req, res, next)=>{
 exports.getCart = (req, res, next)=>{
     req.user
         .populate('cart.items.productId')
-        .exec()
         .then(user => {
             res.render('shop/cart', {
                 title: 'Product Cart Page',
