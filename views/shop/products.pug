@@ -1,0 +1,18 @@
+extends ../layouts/main
+include ../mixins/createProduct
+
+block main-content
+    .main_top
+        include ../includes/sidebar
+        .main_products
+            each cat in categories
+                if cat._id == activecat
+                    .cat_img_top
+                        h1 #{cat.name}
+                        img(class="im lazyload" src=`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==` data-src=`/img/categories/${cat.imgurl}` alt=`${cat.name}`)
+            ul( class = products.length ? 'product_list':'product_list nogrid' )
+                if products.length
+                    each product in products
+                        +createProduct(product)
+                else
+                    h1 Ürün bulunamadı!

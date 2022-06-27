@@ -1,0 +1,13 @@
+extends ../layouts/main
+
+block styles
+    link(rel='stylesheet' href='/css/forms.css')
+    
+block main-content
+    .add_category
+        form(action='/admin/add-category' method='POST')
+            input(type='hidden' name='_csrf' value=`${csrfToken}`)
+            input(type='text' name='name' placeholder='Kategori adı')
+            input(type='text' name='imgurl' placeholder='Kategori resmi')
+            textarea(name='description' rows='7' placeholder='Kategori açıklaması')
+            button.button(type='submit') Kategori Ekle

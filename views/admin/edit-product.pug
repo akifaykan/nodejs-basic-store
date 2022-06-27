@@ -1,0 +1,38 @@
+extends ../layouts/main
+
+block styles
+    link(rel='stylesheet' href='/plugins/select2.min.css')
+    link(rel='stylesheet' href='/css/forms.css')
+
+block main-content
+    .add_product
+        form(action='/admin/product' method='POST' enctype="multipart/form-data")
+            input(type='hidden' name='_csrf' value=`${csrfToken}`)
+            input(type="hidden" name="id" value=`${product._id}`)
+            input(type='text' name='name' value=`${product.name}` placeholder='Ürün adı')
+            input(type='text' name='price' value=`${product.price}` placeholder='Ürün fiyatı')
+            label.edit-img
+                img(src=`/img/products/${product.imgurl}` width=70)
+                input(type='file' name='image' value=`${product.imgurl}` placeholder='ürün resmi')
+            select(class='selectbox' multiple="multiple" name='categoryIds')
+                each category in categories
+                    option(value=category._id selected=category.selected ? 'selected': null) #{category.name}
+            textarea(id="editor" name='description' placeholder='Ürün açıklaması') #{product.description}
+            button.button(type='submit') Ürünü Güncelle
+            
+block scripts
+    script(src='/plugins/jquery-3.6.0.min.js')
+    script(src='/plugins/select2.min.js')
+    script(src='/plugins/ckeditor-classic.js')
+        script(src='https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/translations/tr.js')
+        script.
+            ClassicEditor.create(document.querySelector('#editor'), {
+                language: 'tr'
+            })
+
+            $(document).ready(function () {
+                $('.selectbox').select2({
+                    placeholder: "Kategori seç",
+                    // allowClear: true
+                })
+            })

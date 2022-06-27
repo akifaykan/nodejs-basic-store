@@ -1,0 +1,38 @@
+nav.header_wrapper.flex.flex-between
+    .logo-menu
+        .logo
+            a(href='/') Node Js
+        ul.flex
+                li(class=(path === '/') ? 'menu-item active':'menu-item')
+                    a(href='/') Anasayfa
+                    
+                if isAuthenticated
+                    li(class=(path === '/cart') ? 'menu-item active':'menu-item')
+                        a(href='/cart') Sepet
+                    li(class=(path === '/orders') ? 'menu-item active':'menu-item')
+                        a(href='/orders') Siparişler
+                    
+                li(class=(path === '/products') ? 'menu-item active':'menu-item')
+                    a(href='/products') Ürünler
+                li(class=(path === '/categories') ? 'menu-item active':'menu-item')
+                    a(href='/categories') Kategoriler
+                    
+                if isAdmin
+                    li(class=(path === '/admin/add-product') ? 'menu-item active' : 'menu-item')
+                        a(href='/admin/add-product') Ürün ekle
+                    li(class=(path === '/admin/products') ? 'menu-item active' : 'menu-item')
+                        a(href='/admin/products') Admin ürünler
+                    li(class=(path === '/admin/add-category') ? 'menu-item active' : 'menu-item')
+                        a(href='/admin/add-category') Kategori ekle
+                    li(class=(path === '/admin/categories') ? 'menu-item active' : 'menu-item')
+                        a(href='/admin/categories') Admin Kategori
+    .user-panel
+        ul.flex.flex-gap
+            if isAuthenticated
+                li
+                    a(href='/logout') Çıkış
+            else
+                li
+                    a(href='/login') Giriş
+                li
+                    a(href='/register') Kayıt

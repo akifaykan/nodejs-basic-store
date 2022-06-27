@@ -1,0 +1,10 @@
+.sidebar
+    h3.sidebar_title.mb Kategoriler
+    ul.categories
+        if path !== '/'
+            li( class=( !activecat ? 'cat active' : 'cat') )
+                a(href='http://localhost:3000/products') Tüm Kategoriler
+        if categories.length
+            each category in categories
+                li( class=( category._id == activecat ? 'cat active' : 'cat' ) )
+                    a(href=`/category/${category._id}`) #{category.name}

@@ -1,0 +1,63 @@
+extends ../layouts/main
+
+block main-content
+    if ( action !== 'undefined' && action === 'edit' )
+        .alert.success The product has been updated.
+    else if ( action !== 'undefined' && action === 'delete' )
+        .alert.error The product has been deleted.
+
+    if products.length
+        table
+            thead
+                tr
+                    th Resim
+                    th Ürün Adı
+                    th Ürün Adeti
+                    th Birim Fiyatı
+                    th Toplam Fiyat
+            tbody
+                each product in products
+                    tr
+                        td
+                            img(class="im lazyload" src=`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==` data-src=`/img/products/${product.productId.imgurl}` width='50' height='50')
+                        td
+                            a(href=`/product/${product.productId._id}`) #{product.productId.name}
+                        td #{product.quantity}
+                        td #{product.productId.price}₺
+                        td #{product.productId.price}₺
+                        td.right.btns
+                            form.delete_form(action='/delete-cartitem' method='POST')
+                                input(type='hidden' name='_csrf' value=`${csrfToken}`)
+                                input(type='hidden' name='productid' value=`${product.productId._id}`)
+                                button.item_button(type='submit') Delete
+            tfoot
+                tr
+                    td(colspan='5')
+                         - var total = 0
+                         each product in products
+                             - total += product.productId.price * product.quantity
+                         - let totalFormat = Intl.NumberFormat('tr-TR')
+                         - total = totalFormat.format(total)
+                    td.right.total-count Toplam Tutar :
+                        strong #{total}₺
+                tr
+                    td(colspan='5')
+                    td.right
+                        form(action='/create-order' method='POST')
+                            input(type='hidden' name='_csrf' value=`${csrfToken}`)
+                            button.item_button.big(type='submit') Ödemeye Geç
+    else
+        table
+            thead
+                tr
+                    th Resim
+                    th Ürün Adı
+                    th Ürün Adeti
+                    th Fiyat
+            tbody
+                tr
+                    td(colspan="4" style="text-align:center")
+                        .empty-cart Sepetiniz boş!
+                tr
+                    td(colspan="4" style="text-align:right")
+                        a.item_button.big(href='/products') Alışverişe başla

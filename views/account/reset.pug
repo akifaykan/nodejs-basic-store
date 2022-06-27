@@ -1,0 +1,15 @@
+extends ../layouts/main
+
+block styles
+    link(rel='stylesheet' href='/css/forms.css')
+
+block main-content
+    .account_page
+        h1.text-center Şifreyi sıfırla
+        if errorMessage
+            .alert.error #{errorMessage}
+        form(action='/reset-password' method='POST')
+            input(type='hidden' name='_csrf' value=`${csrfToken}`)
+            input(type='text' name='email' placeholder='E-posta')
+            button.button(type='submit') Şifreyi sıfırla
+        a.mt.flex.flex-center(href='/login') Giriş yap

@@ -1,0 +1,16 @@
+mixin createProduct(product)
+    li.item
+        .product-img
+            a.link(href=`/product/${product._id}`)
+                img(class="im lazyload" src=`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==`  data-src=`/img/products/${product.imgurl}` alt=`${product.name}`)
+        .item_main
+            h2.title
+                a.link(href=`/product/${product._id}`) #{product.name}
+        .item_footer.flex.flex-between.mt
+            span.item_price #{product.price}₺
+            .buttons
+                a.item_button(href=`/product/${product._id}`) Details
+                form(action='/cart' method='POST')
+                    input(type='hidden' name='_csrf' value=`${csrfToken}`)
+                    input(type='hidden' name='productId' value=`${product._id}`)
+                    button.item_button(type='submit') Add to cart

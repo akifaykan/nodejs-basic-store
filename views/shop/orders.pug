@@ -1,0 +1,37 @@
+extends ../layouts/main
+
+block main-content
+    if orders.length
+        ul.order-list
+            each order in orders
+                li.order-item
+                    .cart-head
+                        h3 Sipariş no: ##{order._id}
+                    table
+                        thead
+                            tr
+                                th.table-fix Resim
+                                th.table-fix Ürün Adı
+                                th.table-fix Adet
+                                th.table-fix Fiyat
+                        tbody
+                            each item in order.items
+                                tr
+                                    td
+                                        img(class="im lazyload" src=`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==` data-src=`/img/products/${item.product.imgurl}` width='50' height='50')
+                                    td #{item.product.name}
+                                    td #{item.quantity}
+                                    td #{item.product.price}
+                        tfoot
+                            tr  
+                                - var dateFormat = order.date.toLocaleDateString('tr-TR')
+                                td(colspan="2") Sipariş tarihi: #{dateFormat}
+                                td 
+                                    -var total = 0
+                                    each item in order.items
+                                        - total += item.product.price * item.quantity
+                                    - let totalFormat = Intl.NumberFormat('tr-TR')
+                                    - total = totalFormat.format(total)
+                                td Toplam Tutar: #{total}₺
+    else
+        h1 Sipariş bulunamadı!

@@ -1,0 +1,44 @@
+extends ../layouts/main
+
+block styles
+    link(rel='stylesheet' href='/plugins/select2.min.css')
+    link(rel='stylesheet' href='/css/forms.css')
+
+block main-content
+    .add_product
+        if errorMessage
+            .alert.error !{errorMessage}
+        form(action='/admin/add-product' method='POST' enctype="multipart/form-data")
+            input(type='hidden' name='_csrf' value=`${csrfToken}`)
+            input(type='text' name='name' placeholder='Ürün adı' value=inputs ? inputs.name:'')
+            input(type='text' name='price' placeholder='Ürün fiyatı' value=inputs ? inputs.price:'')
+            input(type='file' name='image' placeholder='ürün resmi' value=inputs ? inputs.imgurl:'')
+            select(class='selectbox' multiple="multiple" name='categoryIds')
+                if (categories)
+                    each category in categories
+                        option(value=category._id) #{category.name}
+                else
+                    if (inputs)
+                        each category in inputs.categories
+                            option(value=category._id selected=category.selected ? 'selected': null) #{category.name}
+                    else
+                        option(value='') Kategori yok
+            textarea(id="editor" name='description' placeholder='Ürün açıklaması') #{inputs ? inputs.description : ''}
+            button.button(type='submit') Ürünü Ekle
+            
+block scripts
+    script(src='/plugins/jquery-3.6.0.min.js')
+    script(src='/plugins/select2.min.js')
+    script(src='/plugins/ckeditor-classic.js')
+    script(src='https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/translations/tr.js')
+    script.
+        ClassicEditor.create(document.querySelector('#editor'), {
+            language: 'tr'
+        })
+
+        $(document).ready(function () {
+            $('.selectbox').select2({
+                placeholder: "Kategori seç",
+                // allowClear: true
+            })
+        })

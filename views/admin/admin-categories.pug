@@ -1,0 +1,33 @@
+extends ../layouts/main
+
+block main-content
+    if (action !== 'undefined' && action === 'create')
+        .alert.success Kategori eklendi.
+    else if ( action !== 'undefined' && action === 'edit' )
+        .alert.success Kategori güncellendi.
+    else if ( action !== 'undefined' && action === 'delete' )
+        .alert.error Kategori silindi.
+
+    if categories.length
+        table
+            thead
+                tr
+                    th Kategori Resmi
+                    th Kategori Adı
+                    th Kategori Açıklaması
+            tbody
+                each category in categories
+                    tr
+                        td
+                            img(class="im lazyload" src=`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==` data-src=`/img/categories/${category.imgurl}` width='200' height='60')
+                        td #{category.name}
+                        td #{category.description}
+                        td.right.btns
+                            a.item_button(href=`/admin/category/${category._id}`) Düzenle
+                            form.delete_form(action='/admin/delete-category' method='POST')
+                                input(type='hidden' name='_csrf' value=`${csrfToken}`)
+                                input(type='hidden' name='categoryid' value=`${category._id}`)
+                                button.item_button(type='submit') Sil
+    else
+        .text-center
+            h2 Kategori bulunamadı!

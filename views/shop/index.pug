@@ -1,0 +1,33 @@
+extends ../layouts/main
+include ../mixins/createProduct
+
+block styles
+    link(rel='stylesheet' href='/plugins/fancybox.css')
+    link(rel='stylesheet' href='/css/slider.css')
+
+block main-content
+    .main_top
+        include ../includes/sidebar
+        include ../includes/slider
+    .categories-page.home
+        ul.category-list
+            each category in categories
+                li
+                    a.link(href=`/category/${category._id}`)
+                        img(class="im lazyload" src=`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==` data-src=`/img/categories/${category.imgurl}` alt=`${category.name}`)
+                        h2 #{category.name}
+    .main_products.homePage
+        ul.product_list
+            if products.length
+                each product in products
+                    +createProduct(product)
+            else
+                h1 Ürün bulunamadı!
+                
+
+block scripts
+    script(src='/plugins/fancyapps.min.js')
+    script.
+        const mainCarousel = new Carousel(document.querySelector("#mainCarousel"), {
+            Navigation: !1
+        });

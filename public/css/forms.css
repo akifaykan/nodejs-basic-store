@@ -1,0 +1,109 @@
+form {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+input,
+textarea,
+select {
+  font-family: 'Quicksand', sans-serif;
+  background: #E9ECEF;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-weight: 500;
+}
+form button.button {
+  font-family: 'Quicksand', sans-serif;
+  text-transform: uppercase;
+  background: #495057;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all .2s ease;
+}
+
+form button:hover {
+  background: #343A40;
+}
+
+.select2-container {
+  margin-bottom: 1rem;
+}
+.select2-container--default .select2-selection--single {
+  background-color: var(--catbg-color);
+  border: 1px solid var(--border-bg);
+  border-radius: 2px;
+  padding: .5rem;
+  height: 3rem;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 3rem;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+  padding: .2rem;
+  color: #6C757D;
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple,
+.select2-container--default .select2-selection--multiple {
+  background-color: var(--catbg-color);
+  border: 0;
+}
+/*.select2-container .select2-selection--multiple .select2-selection__rendered {
+  display: flex;
+  align-items: center;
+}*/
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: #CED4DA;
+  border-radius: 2px;
+  padding: .2rem 1rem .2rem 1.8rem;
+}
+.select2-container--default .select2-search--inline .select2-search__field {
+  font-family: 'Quicksand', sans-serif;
+  margin: 0;
+  padding: .9rem;
+  height: 3rem;
+  width: 100% !important;
+}
+
+label.edit-img {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+label.edit-img input[type="file"] {
+  margin: 0;
+}
+
+form .ck.ck-editor {
+  margin-bottom: 1rem;
+}
+
+form .ck.ck-editor__main .ck {
+  min-height: 200px;
+}
+
+form .ck.ck-editor__main > .ck-editor__editable {
+  background: var(--catbg-color);
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+}
+form .ck.ck-editor__editable.ck-focused:not(.ck-editor__nested-editable) {
+  box-shadow: none;
+  border: none;
+}
+
+#editor {
+  border: 1px solid var(--main-linkhover-color);
+  margin-bottom: 1rem;
+}

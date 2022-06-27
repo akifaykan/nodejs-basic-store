@@ -1,0 +1,12 @@
+extends ../layouts/main
+include ../mixins/createProduct
+       
+block main-content
+    .categories-page
+        h1.text-center Kategoriler
+        ul.category-list
+            each category in categories
+                li
+                    a.link(href=`/category/${category._id}`)
+                        img(class="im lazyload" src=`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==` data-src=`/img/categories/${category.imgurl}` alt=`${category.name}`)
+                        h2 #{category.name}

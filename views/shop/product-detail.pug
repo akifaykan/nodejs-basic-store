@@ -1,0 +1,17 @@
+extends ../layouts/main
+
+block main-content
+    .grid.single_product
+        .single_product-img
+            img(class="im lazyload" src=`data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==` data-src=`/img/products/${product.imgurl}` alt=`${product.name}`)
+        .single_product-details
+            h1.mb #{product.name}
+            .detail-category
+                a.mb(href='') Telefon
+            .detail-price
+                if product.pricesale
+                    del #{product.price}₺
+                    | &nbsp; #{product.pricesale}₺
+                else
+                    | #{product.price}₺
+            p.mt !{product.description}
